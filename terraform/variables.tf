@@ -33,3 +33,28 @@ variable "vpc_cidr_block" {
     error_message = "The CIDR block is not a valid IP address with Subnet mask"
   }
 }
+
+variable "subnets" {
+  type = list(object({
+    name        = string
+    public      = optional(bool, false)
+    cidr_block  = string
+    tags        = optional(map(string), {})
+  }))
+  description = "The list of subnets being created."
+  default     = []
+  validation {
+    condition = length([
+      for subnet in var.subnets :
+      "public"
+      if lookup(subnet, "public", false)
+    ]) <= 1
+    error_message = "Only one subnet map can be configured with \"public\" set to \"true\"."
+  }
+}
+
+variable "availability_zone" {
+  type        = string
+  description = "The suffix of the avaliability zone."
+  default     = "a"
+}
