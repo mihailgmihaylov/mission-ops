@@ -62,6 +62,16 @@ gpg --decrypt secrets.tfvars.gpg > secrets.tfvars
 echo <passphrase> | gpg --batch --yes --symmetric --cipher-algo AES256 --armor --output secrets.tfvars.gpg --passphrase-fd 0 secrets.tfvars
 ```
 
+### Apply Terraform code
+
+We are ready to finally create all the resources in the environment.
+To do that, simpy execute:
+
+```
+cd terraform
+terraform apply -var-file=secrets.tfvars
+```
+
 ## Style Guide:
 - App names are kebap-cased
 - variables are snake_cased

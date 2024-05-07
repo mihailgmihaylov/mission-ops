@@ -11,7 +11,7 @@ resource "aws_vpc" "vpc" {
 
 resource "aws_subnet" "subnets" {
   count                   = length(var.subnets)
-  availability_zone       = local.availability_zone
+  availability_zone       = can(regex("^.*secondary.*$", var.subnets[count.index].name)) ? local.backup_availability_zone : local.availability_zone
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.subnets[count.index].cidr_block
   map_public_ip_on_launch = lookup(var.subnets[count.index], "public", false)
@@ -22,4 +22,13 @@ resource "aws_subnet" "subnets" {
     var.subnets[count.index].tags,
     local.tags
   )
+}
+
+resource "aws_db_subnet_group" "rds" {
+  name       = "${var.name}-db"
+  subnet_ids = local.db_subnets_id
+
+  tags = {
+    Name = "My DB subnet group"
+  }
 }
