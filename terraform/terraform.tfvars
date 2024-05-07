@@ -41,3 +41,8 @@ subnets = [
     }
   }
 ]
+
+database = {
+  storage  = 20
+  instance = "db.t3.micro"
+}

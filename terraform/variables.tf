@@ -58,3 +58,33 @@ variable "availability_zone" {
   description = "The suffix of the avaliability zone."
   default     = "a"
 }
+
+variable "backup_availability_zone" {
+  type        = string
+  description = "The suffix of the backup avaliability zone."
+  default     = "b"
+}
+
+variable "database" {
+  type = object({
+    storage      = number
+    storage_type = optional(string, "gp3")
+    engine       = optional(string, "postgres")
+    version      = optional(string, "16.1")
+    instance     = string
+    is_public    = optional(bool, false)
+  })
+  description = "A map of database settings."
+}
+
+variable "db_admin_user" {
+  type        = string
+  description = "The database user with admin access."
+  default     = ""
+}
+
+variable "db_admin_pass" {
+  type        = string
+  description = "The database admin user password."
+  default     = ""
+}
