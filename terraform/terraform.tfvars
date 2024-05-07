@@ -11,12 +11,21 @@ subnets = [
     cidr_block = "10.10.0.0/24"
 
     tags = {
-      "type" = "dbs-private"
+      "type" = "db"
+    }
+  },
+  # A second DB subnet is an RDS requeirement even for a Standalone instance
+  {
+    name       = "db-secondary-tier"
+    cidr_block = "10.10.1.0/24"
+
+    tags = {
+      "type" = "db"
     }
   },
   {
     name       = "app-tier"
-    cidr_block = "10.10.1.0/24"
+    cidr_block = "10.10.2.0/24"
 
     tags = {
       "type" = "apps-private"
@@ -24,7 +33,7 @@ subnets = [
   },
   {
     name       = "dmz"
-    cidr_block = "10.10.2.0/24"
+    cidr_block = "10.10.3.0/24"
     public     = true
 
     tags = {
@@ -32,3 +41,8 @@ subnets = [
     }
   }
 ]
+
+database = {
+  storage  = 20
+  instance = "db.t3.micro"
+}

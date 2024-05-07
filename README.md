@@ -48,6 +48,30 @@ Expected result:
 Terraform has been successfully initialized!
 ```
 
+### Decrypt the secrets
+
+Secret variables (even the default ones) were encrypted using gpg. To decrypt them simply do (with the provided passphrase):
+
+```
+cd terraform
+gpg --decrypt secrets.tfvars.gpg > secrets.tfvars
+```
+
+*Note*: The command used to encrypt is the following (you may need it if you wish to add new variables or change existing ones):
+```
+echo <passphrase> | gpg --batch --yes --symmetric --cipher-algo AES256 --armor --output secrets.tfvars.gpg --passphrase-fd 0 secrets.tfvars
+```
+
+### Apply Terraform code
+
+We are ready to finally create all the resources in the environment.
+To do that, simpy execute:
+
+```
+cd terraform
+terraform apply -var-file=secrets.tfvars
+```
+
 ## Style Guide:
 - App names are kebap-cased
 - variables are snake_cased
