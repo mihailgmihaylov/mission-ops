@@ -13,7 +13,7 @@ locals {
     }
   )
 
-  db_subnets_id = [
+  db_subnet_ids = [
     for key, subnet in aws_subnet.subnets :
     subnet.id
     if subnet.tags.type == "db"
