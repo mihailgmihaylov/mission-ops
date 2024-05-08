@@ -108,3 +108,12 @@ resource "aws_security_group" "backend_security_group" {
     Name = "backend-security-group"
   }
 }
+
+resource "aws_iam_role" "backend_role" {
+  name = "backend-role"
+
+  assume_role_policy    = data.aws_iam_policy_document.instance_assume_role.json
+  force_detach_policies = true
+
+  tags = local.tags
+}

@@ -35,7 +35,7 @@ resource "aws_apprunner_service" "backend" {
   instance_configuration {
     cpu                = var.application.cpu
     memory             = var.application.memory
-    instance_role_arn  = ""
+    instance_role_arn  = aws_iam_role.backend_role.arn
   }
 
   network_configuration {
