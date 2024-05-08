@@ -46,3 +46,11 @@ database = {
   storage  = 20
   instance = "db.t3.micro"
 }
+
+application = {
+  port      = 8080
+  image     = "public.ecr.aws/aws-containers/hello-app-runner"
+  tag       = "latest"
+  repo      = "ECR_PUBLIC"
+  is_public = true
+}

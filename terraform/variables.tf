@@ -77,6 +77,19 @@ variable "database" {
   description = "A map of database settings."
 }
 
+variable "application" {
+  type = object({
+    port         = number
+    image        = string
+    tag          = string
+    repo         = string
+    cpu          = optional(string, "0.25 vCPU")
+    memory       = optional(string, "0.5 GB")
+    is_public    = optional(bool, false)
+  })
+  description = "A map of all application settings."
+}
+
 variable "db_admin_user" {
   type        = string
   description = "The database user with admin access."
