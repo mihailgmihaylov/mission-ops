@@ -26,7 +26,7 @@ resource "aws_subnet" "subnets" {
 
 resource "aws_db_subnet_group" "rds" {
   name       = "${var.name}-db"
-  subnet_ids = local.db_subnets_id
+  subnet_ids = local.db_subnet_ids
 
   tags = {
     Name = "My DB subnet group"
