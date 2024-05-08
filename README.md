@@ -1,6 +1,10 @@
 # Mission OPS example project
 A sample project to deploy apps in AWS
 
+Here is a high-level diagram of the example deployments:
+
+![Diagram](diagram.png)
+
 ## Initial AWS environment setup
 
 This repo has several prerequisites:
