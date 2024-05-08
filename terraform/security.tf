@@ -85,3 +85,26 @@ resource "aws_iam_role_policy_attachment" "AWSLambdaVPCAccessExecutionRole" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
+
+resource "aws_security_group" "backend_security_group" {
+  name   = "backend-security-group"
+  vpc_id = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = var.application.port
+    to_port     = var.application.port
+    protocol    = "tcp"
+    cidr_blocks = ["${trimspace(data.http.personal_public_ip_address.response_body)}/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["${trimspace(data.http.personal_public_ip_address.response_body)}/32"]
+  }
+
+  tags = {
+    Name = "backend-security-group"
+  }
+}

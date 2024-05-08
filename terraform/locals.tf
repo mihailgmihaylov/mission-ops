@@ -25,6 +25,12 @@ locals {
     if subnet.tags.type == "apps-private"
   ]
 
+  backend_subnet_ids = [
+    for key, subnet in aws_subnet.subnets :
+    subnet.id
+    if subnet.tags.type == "apps-public"
+  ]
+
   db_subnets_cidrs = [
     for key, subnet in aws_subnet.subnets :
     subnet.cidr_block
