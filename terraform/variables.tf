@@ -81,10 +81,12 @@ variable "db_admin_user" {
   type        = string
   description = "The database user with admin access."
   default     = ""
+  sensitive   = true
 }
 
 variable "db_admin_pass" {
   type        = string
   description = "The database admin user password."
   default     = ""
+  sensitive   = true
 }
