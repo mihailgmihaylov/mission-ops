@@ -54,3 +54,7 @@ application = {
   repo      = "ECR_PUBLIC"
   is_public = true
 }
+
+buckets = {
+  names = ["mission-ops-test"]
+}
