@@ -42,11 +42,11 @@ module "s3" {
 
   server_side_encryption_configuration = {
     test-123 = {
-      sse_alogithm = "AES256"
+      sse_algorithm = "AES256"
     }
 
     test-321 = {
-      sse_alogithm = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 

@@ -1,24 +1,27 @@
 module "s3" {
   source = "./modules/s3"
-  names  = ["${var.name}-bucket"]
+  names  = var.buckets.names
 
   block_public_access = {
-    "${var.name}-bucket" = {
-      block_public_acls       = false
-      block_public_policy     = false
-      ignore_public_acls      = true
-      restrict_public_buckets = false
+    for name in var.buckets.names :
+    name => {
+      block_public_acls       = var.buckets.block_public_acls
+      block_public_policy     = var.buckets.block_public_policy
+      ignore_public_acls      = var.buckets.ignore_public_acls
+      restrict_public_buckets = var.buckets.restrict_public_buckets
     }
   }
 
   server_side_encryption_configuration = {
-    "${var.name}-bucket" = {
-      sse_alogithm = "AES256"
+    for name in var.buckets.names :
+    name => {
+      sse_algorithm = var.buckets.sse_algorithm
     }
   }
 
   bucket_policies = {
-    "${var.name}-bucket" = [
+    for name in var.buckets.names :
+    name => [
       {
         sid         = "ReadOnly"
         effect      = "Allow"
@@ -56,6 +59,7 @@ module "s3" {
   }
 
   tags = {
-    "${var.name}-bucket" = local.tags
+    for name in var.buckets.names :
+    name => local.tags
   }
 }

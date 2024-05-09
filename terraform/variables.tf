@@ -90,6 +90,18 @@ variable "application" {
   description = "A map of all application settings."
 }
 
+variable "buckets" {
+  type = object({
+    names                   = list(string)
+    block_public_acls       = optional(bool, false)
+    block_public_policy     = optional(bool, false)
+    ignore_public_acls      = optional(bool, true)
+    restrict_public_buckets = optional(bool, false)
+    sse_algorithm           = optional(string, "AES256")
+  })
+  description = "A map of all S3 bucket settings."
+}
+
 variable "db_admin_user" {
   type        = string
   description = "The database user with admin access."
